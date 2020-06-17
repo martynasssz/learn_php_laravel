@@ -13,10 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+// Route::get('/', function () { //the same as view method
+//     return view('home');
+// });
 
-Route::get('/contact', function() {
-    return view('contact');
+Route::view('/', 'home');
+
+// Route::get('/contact', function() {
+//     return view('contact');
+// });
+
+Route::view('/contact', 'contact');
+
+// Route::get('/blog-post/{blog-post-id}/{author}', function ($id, $authorName) {
+//     return $id. $authorName;
+// });
+
+Route::get('/blog-post/{id}/{welcome?}', function ($id, $welcome = 1) {
+    $pages = [   //simple variable an asociative array
+        1 => [   //key as id
+            'title' => 'from page 1'
+        ],
+        2 => [   //key as id
+            'title' => 'from page 2'
+        ],
+    ];
+    $welcomes = [1 => 'Hello ', 2 => 'Welcome to ']; //optina paramenter
+
+    return view('blog-post',
+        ['data'=>$pages[$id], 
+        'welcome' =>  $welcomes[$welcome],
+    ]); //blog-post is function that will be rendered
 });

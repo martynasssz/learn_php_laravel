@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('home');
 // });
 
-Route::view('/', 'home');
+Route::view('/', 'home')->name('home');
 
 // Route::get('/contact', function() {
 //     return view('contact');
 // });
 
-Route::view('/contact', 'contact');
+Route::view('/contact', 'contact')->name('contact');
 
 // Route::get('/blog-post/{blog-post-id}/{author}', function ($id, $authorName) {
 //     return $id. $authorName;
@@ -44,4 +44,4 @@ Route::get('/blog-post/{id}/{welcome?}', function ($id, $welcome = 1) {
         ['data'=>$pages[$id], 
         'welcome' =>  $welcomes[$welcome],
     ]); //blog-post is function that will be rendered
-});
+})->name('blog-post');

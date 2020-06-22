@@ -29,7 +29,7 @@ class AddTitleContentToBlogpostsTable extends Migration
         Schema::table('blogposts', function (Blueprint $table) {
             //$table->dropColumn('title'); //means the same
             //$table->dropColumn('content');
-            $table->dropColumn(['title', 'content']);
+            $table->dropColumn(['title', 'content']); //we can use array
         });
     }
 }

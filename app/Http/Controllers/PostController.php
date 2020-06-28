@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        dd(BlogPost::all());
+        return view('posts.index', ['posts' => BlogPost::all()]);
     }
 
     /**
@@ -24,7 +24,7 @@ class PostController extends Controller
      */    
     public function show($id)
     {
-       dd(BlogPost::find($id)); 
+       return view('posts.show', ['post' => BlogPost::findOrFail($id)]); 
     }
 
     /**

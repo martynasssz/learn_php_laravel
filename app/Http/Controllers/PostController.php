@@ -38,10 +38,19 @@ class PostController extends Controller
        // dd($request->all());    // use all method to fetch all input values
        // echo individual values
 
-       $title = $request->input('title');
-       $content = $request ->input('content');
+       $blogPost = new BlogPost(); //for storing to DB (new BlogPost model)
+       $blogPost->title = $request->input('title'); //assign to $blogPost property title
+       $blogPost->content = $request ->input('content'); //assign to $blogPost property content
+       $blogPost->save(); //to save data to database
 
-       dd($title, $content);
+       //return redirect('/posts'); //specify url where we want rederect
+
+       //we can redirect to specific route
+       //return redirect()->route('posts.index');
+
+       //we can redirect to specific route with parameter
+       return redirect()->route('posts.show', ['post'=>$blogPost->id]);
+
     }
 
     /**

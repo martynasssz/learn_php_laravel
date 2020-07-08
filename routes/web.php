@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
-Route::resource('/posts', 'PostController')->only(['index', 'show']); //show only two resources
+Route::resource('/posts', 'PostController')
+    ->only(['index', 'show', 'create', 'store']); //show only two resources

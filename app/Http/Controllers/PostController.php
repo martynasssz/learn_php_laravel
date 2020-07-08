@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BlogPost;
+use Illuminate\Http\Request;
 
 
 class PostController extends Controller
@@ -25,6 +26,22 @@ class PostController extends Controller
     public function show($id)
     {
        return view('posts.show', ['post' => BlogPost::findOrFail($id)]); 
+    }
+
+    public function create()
+    {
+        return view ('posts.create'); // dot use in laravel replacemnet as directory separator (instead slash)
+    }
+
+    public function store(Request $request) //Request $request argument to store method
+    {
+       // dd($request->all());    // use all method to fetch all input values
+       // echo individual values
+
+       $title = $request->input('title');
+       $content = $request ->input('content');
+
+       dd($title, $content);
     }
 
     /**

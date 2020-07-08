@@ -9,9 +9,9 @@
 <body>
     <ul>
         <li><a href="{{ route('home') }}">Home</a></li>
-        <li><a href="{{ route('contact') }}"> Contact</a>
-        <li><a href="{{ route('posts.index') }}"> BlogPosts</a>    
-           
+        <li><a href="{{ route('contact') }}"> Contact</a></li>
+        <li><a href="{{ route('posts.index') }}"> BlogPosts</a></li>   
+        <li><a href="{{ route('posts.create') }}"> Add BlogPost</a></li>           
     </ul>
 
 @yield('content')

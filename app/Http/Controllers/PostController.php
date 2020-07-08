@@ -23,9 +23,12 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */    
-    public function show($id)
+    public function show(Request $request, $id) //if we want to save more than one request
     {
-       return view('posts.show', ['post' => BlogPost::findOrFail($id)]); 
+        //$request->session()->reflash(); //this will keep the flash variable for next request(for one more request)
+        return view('posts.show', ['post' => BlogPost::findOrFail($id)]); 
+
+
     }
 
     public function create()
@@ -42,6 +45,8 @@ class PostController extends Controller
        $blogPost->title = $request->input('title'); //assign to $blogPost property title
        $blogPost->content = $request ->input('content'); //assign to $blogPost property content
        $blogPost->save(); //to save data to database
+
+       $request->session()->flash('status', 'Blog post was created!');
 
        //return redirect('/posts'); //specify url where we want rederect
 

@@ -40,8 +40,10 @@ class PostController extends Controller
     {
        $validatedData = $request->validate([
         //'title' - field name we send through the form, and string that validation rules should be used for a title   
-        'title' => 'required|max:100',   
-        'content' => 'required'
+        // first rule is required, second max:100, third min 5
+        // if we want checking after firs rule fail we use bail constrait 'title' => 'bail|min:5|required|max:100',
+        'title' => 'required|max:100|min:5',   //max 100 character min 5 chare
+        'content' => 'required|min:10'
        
            ]);
 

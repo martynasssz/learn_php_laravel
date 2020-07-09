@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\BlogPost;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePost;
+
 
 
 class PostController extends Controller
@@ -27,8 +29,6 @@ class PostController extends Controller
     {
         //$request->session()->reflash(); //this will keep the flash variable for next request(for one more request)
         return view('posts.show', ['post' => BlogPost::findOrFail($id)]); 
-
-
     }
 
     public function create()
@@ -36,18 +36,15 @@ class PostController extends Controller
         return view ('posts.create'); // dot use in laravel replacemnet as directory separator (instead slash)
     }
 
-    public function store(Request $request) //Request $request argument to store method
+    public function store(StorePost $request) //StorePost because created StorePost method
     {
-       $validatedData = $request->validate([
-        //'title' - field name we send through the form, and string that validation rules should be used for a title   
-        // first rule is required, second max:100, third min 5
-        // if we want checking after firs rule fail we use bail constrait 'title' => 'bail|min:5|required|max:100',
-        'title' => 'required|max:100|min:5',   //max 100 character min 5 chare
-        'content' => 'required|min:10'
-       
-           ]);
+       $validatedData = $request->validated(); //changed to valideted() because use StorePost request
+
+       dd($validatedData);
 
        $blogPost = new BlogPost(); //for storing to DB (new BlogPost model)
+       //$validatedData['title']; // reading title alternative as use $blogPost->title = $request->input('title');
+       //$validatedData['content']; 
        $blogPost->title = $request->input('title'); //assign to $blogPost property title
        $blogPost->content = $request ->input('content'); //assign to $blogPost property content
        $blogPost->save(); //to save data to database

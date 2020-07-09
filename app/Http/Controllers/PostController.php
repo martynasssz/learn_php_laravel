@@ -39,24 +39,9 @@ class PostController extends Controller
     public function store(StorePost $request) //StorePost because created StorePost method
     {
        $validatedData = $request->validated(); //changed to valideted() because use StorePost request
-
-       dd($validatedData);
-
-       $blogPost = new BlogPost(); //for storing to DB (new BlogPost model)
-       //$validatedData['title']; // reading title alternative as use $blogPost->title = $request->input('title');
-       //$validatedData['content']; 
-       $blogPost->title = $request->input('title'); //assign to $blogPost property title
-       $blogPost->content = $request ->input('content'); //assign to $blogPost property content
-       $blogPost->save(); //to save data to database
-
+       $blogPost = BlogPost::create($validatedData);  //using static method instead new BlogPost, everything is done in created method
        $request->session()->flash('status', 'Blog post was created!');
 
-       //return redirect('/posts'); //specify url where we want rederect
-
-       //we can redirect to specific route
-       //return redirect()->route('posts.index');
-
-       //we can redirect to specific route with parameter
        return redirect()->route('posts.show', ['post'=>$blogPost->id]);
 
     }

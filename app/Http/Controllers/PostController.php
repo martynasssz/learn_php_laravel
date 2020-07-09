@@ -53,7 +53,7 @@ class PostController extends Controller
 
     public function update(StorePost $request, $id)
     {
-        $post = BlogPost::findOrFail($id);
+        $post = BlogPost::findOrFail($id); //read data from DB
         $validatedData = $request->validated();
 
         $post ->fill($validatedData); //fill() method is using when we have data in db
@@ -62,6 +62,17 @@ class PostController extends Controller
         $request->session()->flash('status', 'Blog post was updated!');
 
         return redirect()->route('posts.show', ['post'=>$post->id]);
+    }
+
+    public function destroy(Request $request, $id) {
+        $post = BlogPost::findOrFail($id); //read data from DB
+        $post ->delete();
+
+        //BlogPost::destroy($id);  the same upper
+
+      
+         $request->session()->flash('status', 'Blog post was deleted!');
+        return redirect()->route('posts.index');
 
     }
 

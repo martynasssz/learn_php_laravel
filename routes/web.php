@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@home')->name('home');
 Route::get('/contact', 'HomeController@contact')->name('contact');
-Route::resource('/posts', 'PostController')
-    ->except(['destroy']); //use except when we use more than five metods
+Route::resource('/posts', 'PostController');
+    

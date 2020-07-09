@@ -1,13 +1,13 @@
-<p>
+<div class="form-group">
     <label> Title</label>
-    <input type="text" name="title" 
+    <input type="text" name="title" class="form-control"
         value = "{{ old('title', $post->title  ?? null) }}"/> {{-- ?? new operator means  if value not found will be null--}}
-</p>
-<p>
+</div>
+<div class="form-group">
     <label> Content</label>
-    <input type="text" name="content" 
+    <input type="text" name="content" class="form-control"
         value = "{{ old('content', $post->content ?? null) }}"/>
-</p>
+</div>
 
 @if($errors->any())
     <div>

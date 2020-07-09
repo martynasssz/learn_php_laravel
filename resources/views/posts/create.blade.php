@@ -5,11 +5,11 @@
         @csrf
         <p>
             <label> Title</label>
-            <input type="text" name="title"/>
+            <input type="text" name="title" value = "{{ old('title') }}"/> {{-- keep title value in form old helper--}}
         </p>
         <p>
             <label> Content</label>
-            <input type="text" name="content"/>
+            <input type="text" name="content" value = "{{ old('content') }}"/>
         </p>
 
         @if($errors->any())

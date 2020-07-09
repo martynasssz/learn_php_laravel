@@ -25,9 +25,8 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */    
-    public function show(Request $request, $id) //if we want to save more than one request
-    {
-        //$request->session()->reflash(); //this will keep the flash variable for next request(for one more request)
+    public function show($id) 
+    {        
         return view('posts.show', ['post' => BlogPost::findOrFail($id)]); 
     }
 
@@ -45,6 +44,18 @@ class PostController extends Controller
        return redirect()->route('posts.show', ['post'=>$blogPost->id]);
 
     }
+
+    public function edit($id)
+    {
+        $post = BlogPost::findOrFail($id);
+        return view('posts.edit', ['post' => $post]);
+    }
+
+    public function update()
+    {
+
+    }
+
 
     /**
      * Show the form for editing the specified resource.

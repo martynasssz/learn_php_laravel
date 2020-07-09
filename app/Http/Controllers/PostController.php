@@ -38,8 +38,12 @@ class PostController extends Controller
 
     public function store(Request $request) //Request $request argument to store method
     {
-       // dd($request->all());    // use all method to fetch all input values
-       // echo individual values
+       $validatedData = $request->validate([
+        //'title' - field name we send through the form, and string that validation rules should be used for a title   
+        'title' => 'required|max:100',   
+        'content' => 'required'
+       
+           ]);
 
        $blogPost = new BlogPost(); //for storing to DB (new BlogPost model)
        $blogPost->title = $request->input('title'); //assign to $blogPost property title

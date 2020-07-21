@@ -37,5 +37,19 @@ class PostTest extends TestCase
        ]);
     }
 
+    public function testStoreValid()
+        {
+            $params = [
+                'title' => 'Valid title',
+                'content' => 'At least 10 characters'
+            ]; 
+            
+            $this ->post('/posts', $params)
+                ->assertStatus(302) //302 status, then redirection successful
+                ->assertSessionHas('status'); //check if status variable inside in session
 
+            $this->assertEquals(session('status'), 'Blog post was created');  //reading session value using session function
+                
+        }
+    
 }

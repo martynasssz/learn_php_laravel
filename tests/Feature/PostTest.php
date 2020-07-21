@@ -20,10 +20,7 @@ class PostTest extends TestCase
     public function testSee1BlogPostWhenThereIs1()
     {
        //Arrange part
-       $post = new BlogPost();
-       $post->title = 'New title';
-       $post->content = 'Content of the blog post';
-       $post->save();
+       $post = $this->createDummyBlogPost();
 
        //Act part
        $response = $this->get('/posts');
@@ -70,4 +67,49 @@ class PostTest extends TestCase
 
         //dd($messages->getMessages()); //dd to see that message contains   
     }
+
+    public function testUpdateValid()
+    {
+        $post = $this->createDummyBlogPost();
+
+        $this->assertDatabaseHas('blog_posts', $post->toArray()); //$post->toArray()) exists in database        
+        $params = [
+            'title' => 'A new named title',
+            'content' => 'Content was changed'
+        ];
+
+        $this->put("/posts/{$post->id}", $params)
+            ->assertStatus(302)
+            ->assertSessionHas('status');
+        
+        $this->assertEquals(session('status'), 'Blog post was updated!');//veryfy content of status method
+        $this->assertDatabaseMissing('blog_posts', $post->toArray());
+        $this->assertDatabaseHas('blog_posts', [
+            'title' => 'A new named title'
+        ]);
+    }
+
+    public function testDelete()
+    {
+        $post = $this->createDummyBlogPost();
+        $this->assertDatabaseHas('blog_posts', $post->toArray());
+
+        $this->delete("/posts/{$post->id}")
+            ->assertStatus(302)
+            ->assertSessionHas('status');
+        
+        $this->assertEquals(session('status'), 'Blog post was deleted!');
+        $this->assertDatabaseMissing('blog_posts', $post->toArray());
+    }
+
+    private function createDummyBlogPost(): BlogPost
+    {
+        $post = new BlogPost();
+        $post->title = 'New title';
+        $post->content = 'Content of the blog post';
+        $post->save();
+
+        return $post;
+    }
+
 }

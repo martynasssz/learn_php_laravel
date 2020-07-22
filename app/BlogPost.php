@@ -12,5 +12,10 @@ class BlogPost extends Model
 
     protected $fillable = ['title', 'content']; //specify column names, that shoud be modified by mass assignment
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
 
 }

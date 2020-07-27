@@ -8,6 +8,7 @@ use App\Http\Requests\StorePost;
 
 
 
+
 class PostController extends Controller
 {
     /**
@@ -17,7 +18,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index', ['posts' => BlogPost::all()]);
+       /*fetch all blogposts*/ 
+       /* return view('posts.index', ['posts' => BlogPost::all()]);*/
+
+      /*show new property of counting commnets*/
+       return view(
+           'posts.index',
+            ['posts' => BlogPost::withCount('comments')->get()]
+        );
     }
 
     /**

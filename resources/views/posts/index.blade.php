@@ -15,6 +15,13 @@
                 <a href="{{ route('posts.show', ['post' => $post->id]) }}" >{{ $post->title }} </a>
             </h3>
 
+             @if($post->comments_count) {{-- if have any comments then--}}
+                <p>{{ $post->comments_count }} comments</p>
+             @else {{-- if zero display --}}
+                <p>No comments yet!</p>
+             @endif
+
+
             <a href="{{ route('posts.edit', ['post' => $post->id]) }}" class="btn btn-primary"> 
             Edit </a>
             

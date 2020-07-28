@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\BlogPost;
+use App\Comment;
 
 class PostTest extends TestCase
 {
@@ -17,23 +18,42 @@ class PostTest extends TestCase
         $response->assertSeeText('No blog post yet!');
     }
 
-    // public function testSee1BlogPostWhenThereIs1()
-    // {
-    //    //Arrange part
-    //    $post = $this->createDummyBlogPost();
 
-    //    //Act part
-    //    $response = $this->get('/posts');
+
+    public function testSee1BlogPostWhenThereIs1WithNoComments()
+    {
+       //Arrange part
+       $post = $this->createDummyBlogPost();
+
+       //Act part
+       $response = $this->get('/posts');
               
-    //    //Asset part
-    //    $response->assertSeeText('New title');
-    //    $response->assertSeeText('No comments yet!');
+       //Asset part
+       $response->assertSeeText('New title');
+       $response->assertSeeText('No comments yet!');
     
-    //    // if text in specific table in DB
-    //    $this->assertDatabaseHas('blog_posts', [
-    //        'title' => 'New title'
-    //    ]);
-    // }
+       // if text in specific table in DB
+       $this->assertDatabaseHas('blog_posts', [
+           'title' => 'New title'
+       ]);
+    }
+
+    public function testSee1BlogPostWithComments()
+    {
+    //Arrange part
+       $post = $this->createDummyBlogPost();
+       factory(Comment::class, 4)->create([
+           'blog_post_id' =>$post->id
+        ]);
+
+       $response = $this->get('/posts');
+
+       $response->assertSeeText('4 comments');
+
+
+
+
+    }
 
     // public function testStoreValid()
     // {
@@ -103,14 +123,14 @@ class PostTest extends TestCase
     //     $this->assertDatabaseMissing('blog_posts', $post->toArray());
     // }
 
-    // private function createDummyBlogPost(): BlogPost
-    // {
-    //     $post = new BlogPost();
-    //     $post->title = 'New title';
-    //     $post->content = 'Content of the blog post';
-    //     $post->save();
+    private function createDummyBlogPost(): BlogPost
+    {
+        $post = new BlogPost();
+        $post->title = 'New title';
+        $post->content = 'Content of the blog post';
+        $post->save();
 
-    //     return $post;
-    // }
+        return $post;
+    }
 
 }

@@ -16,7 +16,9 @@ $factory->state(App\BlogPost::class, 'new-title', function(Faker $faker) {
     return [
         'title' => 'New title', //overwrite faker's generated title
        // 'content' =>'Content of the blog post' //overwrite faker's generated content
-    ];
-
-    
+    ];    
 });
+
+
+
+

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function home() 
     {
+        //dd(Auth::id()); give id of connected current user
+        //dd(Auth::user()); give array of user
+        //dd(Auth::check()); show if corrent user is connected   
         return view('home');
     }
 

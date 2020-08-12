@@ -16,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', 'HomeController@home')->name('home');
+Route::get('/', 'HomeController@home')
+    ->name('home')
+    //->middleware('auth');//when we are home we shoud connect, it is because is middleware
+    
+    ;
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::resource('/posts', 'PostController');
 

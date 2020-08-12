@@ -11,6 +11,11 @@ use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth') //protect every single route in post controller
+         ->only(['create', 'store', 'edit', 'update', 'destroy']); // when use only, protect certaint routes in controller
+    }
     /**
      * Display a listing of the resource.
      *

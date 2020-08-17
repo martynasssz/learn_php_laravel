@@ -21,19 +21,10 @@ class DatabaseSeeder extends Seeder
         //         'remember_token' => Str::random(10),
         // ]);
 
-        $doe = factory(App\User::class)->states('john-doe')->create(); //use john-doe factory state
-        $else = factory(App\User::class, 20)->create(); //20 users will be created
-
-        $users = $else->concat([$doe]);  
-        
-        $posts = factory(App\BlogPost::class, 50)->make()->each(function($post) use ($users) { //created 50 blogpost
-            $post->user_id = $users->random()->id; //random users were asign to blog posts
-            $post->save(); //save is needed because we use make() function
-        });
-
-        $comments = factory(App\Comment::class, 150)->make()->each(function($comment) use ($posts) {
-            $comment->blog_post_id = $posts->random()->id;
-            $comment->save();
-        });        
-    }
+        $this->call([
+            UsersTableSeeder::class,
+            BlogPostsTableSeeder::class,
+            CommentsTableSeeder::class
+        ]); //call a specific class from which data will take
+    }           
 }
